@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**Guess_Word is a hang-man-like game in which players 
+ * can select a difficult and start a new game, guess 
+ * letters until the word from the WordList file is 
+ * completed or the player runs out of guess, save and 
+ * load previous games, and all in one window and GUI basis.
+ * @author Dawson C. Branch
+ * @version 1.0.0
+ * @since 1.0.0
  */
 package Guess_Word;
 
@@ -30,14 +34,29 @@ import javafx.scene.layout.HBox;
 import java.util.Scanner;
 import java.nio.file.Paths;
 
+/**FXMLDocumentController provides the general functionality to the GUI
+ * @author Dawson C. Branch
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public class FXMLDocumentController
 {
-    int difficulty = 1;
-    File wordList = new File ("WordList.txt");
+    //GUI controller variables
+    //Numeric representation of difficulty (1 being the lowest number and the easiest difficulty
+    int difficulty = 1; 
+    //Text file containing all the game's possible mystery
+    File wordList = new File ("WordList.txt"); 
+    /*String used to hold the word currently being looked at when scanning
+    through the word list*/
     String tempWord = "";
-    Game currGame;
+    /*A Game class object that contains the data for the game
+     * currently being played*/
+    Game currGame; 
+    /*An ArrayList of easy words, words with 10 characters, from the mystery word list*/
     List<String> easyWords = new ArrayList<String>();
+    /*An ArrayList of intermediate words, words with 8 characters, from the mystery word list*/
     List<String> interWords = new ArrayList<String>();
+    /*An ArrayList of hard words, words with 6 characters, from the mystery word list*/
     List<String> hardWords = new ArrayList<String>();
     
 
@@ -56,13 +75,17 @@ public class FXMLDocumentController
     private Button btn_Load;
     
     
-    @FXML
-    private ListView ltv_Saves;
-    
+    //Save selection UI
+    //Contains save selection UI part of start menu
     @FXML
     private HBox hbx_LoadGame;
+    
+    @FXML
+    private ListView ltv_Saves;
 
-
+    @FXML
+    private Button btn_LoadSelected;
+    
     
     //Game Screen
     @FXML
@@ -70,7 +93,11 @@ public class FXMLDocumentController
 
     @FXML
     private Label lbl_MysteryWord;
-
+    
+    /*Number of wrong answers acceptable before the game is lost. For clarity, 
+    change label from "Guesses" to 'Lifes' and, optionally, remove the # display
+    from the label, and a row of cartoon hearts representing the number of 
+    'Lifes' left.*/
     @FXML
     private Label lbl_Guesses;
 
@@ -99,10 +126,12 @@ public class FXMLDocumentController
     private Button btn_CreateGame;
     @FXML
     private Button btn_Quit;
-    @FXML
-    private Button btn_LoadSelected;
     
     
+    /**Adjusts difficulty upon the mouse moving the slider in the respective
+     * portion, fraction, of the slider's range
+     * @param event - When the slider is adjusted
+     */
     @FXML
     void AdjustDifficulty(MouseEvent event)
     {
@@ -133,6 +162,8 @@ public class FXMLDocumentController
         System.out.println(random);
         int numGuesses = 0;
         
+        /*If the word list for each difficulty level is not populated, then the 
+        code block will try to populate it*/
         if(easyWords.isEmpty() || interWords.isEmpty() || hardWords.isEmpty())
         {
             try(BufferedReader brInput = new BufferedReader(new FileReader(wordList)))
@@ -161,7 +192,9 @@ public class FXMLDocumentController
                 System.exit(1);
             }
         }
-        List<String> selectedWords = new ArrayList<String>();
+        /*Array List for the selected difficulty's words to go into.
+        Note: Inefficient. See comment after switch.*/
+        List<String> selectedWords = new ArrayList<String>(); 
         switch(difficulty)
         {
             case 1:
@@ -177,7 +210,9 @@ public class FXMLDocumentController
                 numGuesses = 4;
                 break;
         }
-        
+        /*Inefficient code. Copy to following 4 lines into the switch above for each 
+        difficulty case, swap out selectedWords with the respective difficulty, 
+        delete the declaration of selectedWords, and check for any other instances of it.*/
         System.out.println(selectedWords.size());
         random = randomGen.nextInt(selectedWords.size());
         System.out.println(random);
@@ -217,6 +252,9 @@ public class FXMLDocumentController
         pne_Game.setVisible(true);
     }
 
+    /**LoadGame pulls the list of saved game files
+     * @param event Load Game button is pressed
+     */
     @FXML
     void LoadGame(ActionEvent event)
     {
@@ -225,6 +263,8 @@ public class FXMLDocumentController
         ltv_Saves.setDisable(false);
         
         File[] files = new File(".").listFiles();
+        /*Searches through save files in project folder and adds each save found
+        to the listview object for saves*/
         for (File file : files)
         {
             if (file.isFile() && file.getName().contains("SAVE_"))
@@ -236,9 +276,18 @@ public class FXMLDocumentController
         hbx_LoadGame.setVisible(true);
 
         ltv_Saves.setVisible(true);
-        
     }
     
+    /**Use the save file highlighted in the listview for saves to recreate the 
+    Game class
+    * @param event Load button in hbx for saved games is clicked
+    * Possible bug: Load button may be selectable even when there are no save 
+    * files.
+    * Possible fixes: Add a cancel/return button that displays with the rest of 
+    * that portion of the UI and, when there's no saves detected, display a
+    * message saying that
+    * return button to saves hbx,
+    */
     @FXML
     void LoadSelected(ActionEvent event)
     {
@@ -269,11 +318,6 @@ public class FXMLDocumentController
                 numGuesses = input.nextInt();
                 System.out.println(numGuesses);
             }
-            
-            
-            
-            
-            
             
             currGame = new Game(mystWord, currWord, guesses, numGuesses);
             
@@ -323,10 +367,28 @@ public class FXMLDocumentController
         ltv_Saves.setVisible(true);
     }
     
+    /**Forfeit the game, prevent the player from interacting with the game
+     * components and save function, reveal the mystery word, and reveal the
+     * return to start menu button.
+     @param event Quit button is clicked*/
+    @FXML
+    void QuitGame(ActionEvent event)
+    {
+        lbl_MysteryWord.setText(currGame.getMystWord());
+        
+        btn_Save.setVisible(false);
+        btn_Save.setDisable(true);
+        
+        btn_Return.setDisable(false);
+        btn_Return.setVisible(true);
+        
+        txt_GuessInput.setDisable(true);
+        btn_Guess.setDisable(true);
+    }
     
-    
-  
-
+    /**Return to the start menu
+     * @param event The return button is clicked
+     */
     @FXML
     void ReturnToStart (ActionEvent event)
     {
@@ -339,6 +401,15 @@ public class FXMLDocumentController
         pne_StartMenu.setVisible(true);
     }
     
+    /**Looks at the guess letter text box. If the letter is in the mystery word,
+     * then EnterGuess fills any instances of the letter in the mystery word 
+     * label, adds it to the label of guessed letters, and declares the game won
+     * If there are no more letters to guess, decrease the number of guesses of 'Lifes' remaining,
+     * and declare the game lost if there are now 0 left. Displays an error
+     * message if the input is invalid. 
+     * @param event Guess button is clicked
+     * For clarity, change name to EnteredGuess.
+     */
     @FXML
     void EnterGuess(ActionEvent event)
     {
@@ -384,22 +455,9 @@ public class FXMLDocumentController
         txt_GuessInput.setText("");
     }
 
-    
-    @FXML
-    void QuitGame(ActionEvent event)
-    {
-        lbl_MysteryWord.setText(currGame.getMystWord());
-        
-        btn_Save.setVisible(false);
-        btn_Save.setDisable(true);
-        
-        btn_Return.setDisable(false);
-        btn_Return.setVisible(true);
-        
-        txt_GuessInput.setDisable(true);
-        btn_Guess.setDisable(true);
-    }
-
+    /**Uses the current Game class's save method to create a save file.
+     * @param event Save button is clicked
+     */
     @FXML
     void SaveGame(ActionEvent event)
     {

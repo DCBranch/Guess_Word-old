@@ -1,7 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**Guess_Word is a hang-man-like game in which players can select a difficult 
+ * and start a new game, guess letters until the word from the WordList file is 
+ * completed or the player runs out of guess, save and load previous games, and 
+ * all in one window and GUI basis.
+ * @author Dawson C. Branch
+ * @version 1.0.0
+ * @since 1.0.0
  */
 package Guess_Word;
 
@@ -14,24 +17,36 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author DCoreB
+/**Game classes are what hold info about the player's game in the moment; what 
+ * the full mystery is, what the player has revealed of the mystery word, and 
+ * the player's guesses.
+ * @author Dawson C. Branch
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public class Game {
+    //word that's supposed to be guessed
     private char [] mysteryWord;
+    //What the player has revealed of the mystery word
     private char [] currentWord;
+    //List of all guessed letters
     private List<Character> guesses = new ArrayList<Character>();
+    
     private int numGuesses = 0;
+    //Unneeded?
     private Object[] args;
     
-    //New game constructor
+    /**New game constructor
+     * 
+     * @param word - Randomly selected mystery word from the word list file
+     * @param numGuesses - The number of guesses allotted based on the 
+     * difficulty
+     */
     public Game(String word, int numGuesses)
     {
         System.out.println(word);
         
         mysteryWord = word.toCharArray();
-        //word.getChars(0, word.length() - 1, mysteryWord, 0);
         System.out.println(new String(mysteryWord));
         
         currentWord = new char [word.length()];
@@ -44,7 +59,14 @@ public class Game {
         this.numGuesses = numGuesses;
     }
     
-    //Load game constructor
+    /**Load game constructor
+     * 
+     * @param word - Randomly selected mystery word from the word list file
+     * @param curr - What of the mystery word has been revealed
+     * @param guesses - The letters that were already guessed
+     * @param numGuesses - The number of guesses allotted based on the 
+     * difficulty
+     */
     public Game(String word, String curr, String guesses, int numGuesses)
     {
         mysteryWord = word.toCharArray();
@@ -55,7 +77,9 @@ public class Game {
         this.numGuesses = numGuesses;
     }
     
-    //Saves this game's info into a text file
+    /**Saves this game's info into a text file
+     * 
+     */
     public void save()
     {
         //Uses the local date and time as the name of the filename
@@ -64,6 +88,7 @@ public class Game {
         saveFileName = saveFileName.replace('.', '_');
         saveFileName = saveFileName.replace(':', '_');
         
+        //Tries to create a new save file
         try
         {
             FileWriter saveFile = new FileWriter (saveFileName, true);
@@ -93,13 +118,14 @@ public class Game {
             
             System.exit(1);
         }
-        
-        
     }
     
-    /*Checks to see if the guess is in the mystery word, decrements numGuesses, and replaces _s with
-     the character if it's in the mystery word. If there's no guesses left, it returns false and makes
-    no changes to the class.*/
+    /**Checks to see if the guess is in the mystery word, decrements numGuesses, and replaces _s with
+     * the character if it's in the mystery word. If there's no guesses left, it returns false and makes
+     * no changes to the class.
+     * 
+     * @param guess - letter that's been 'guessed'
+    */
     public boolean guess(char guess)
     {
         boolean found = false;
@@ -124,21 +150,26 @@ public class Game {
         return true;
     }
     
+    //Returns a String of the game's mystery word
     public String getMystWord()
     {
         return new String(mysteryWord);
     }
     
+    //Returns an int of the number of guesses allotted for the game
     public int getNumGuesses()
     {
         return numGuesses;
     }
     
+    /*Returns a String of the game's currently revealed letters of the mystery
+    word*/
     public String getCurrWord()
     {
         return new String(currentWord);
     }
     
+    //Returns a String of the letters already guessed
     public String getGuesses()
     {
         return guesses.toString();
