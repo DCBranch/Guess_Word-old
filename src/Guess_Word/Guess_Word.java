@@ -30,10 +30,11 @@ import javafx.stage.Stage;
  * @since 1.0.0
  */
 public class Guess_Word extends Application {
-    /**start javadoc test
+    /**Start is the main entry point for JavaFX applications.
      * 
-     * @param stage Something Something
-     * @throws Exception Something more
+     * @param stage - Stage is the primary stage and can be used for setting the 
+     * application's scene
+     * @throws Exception
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -45,6 +46,12 @@ public class Guess_Word extends Application {
         stage.show();
     }
     
+    /**Launches the standalone Guess Word game application. Returns upon exiting
+     * the application
+     * 
+     * @param args - Array input command line arguments for informing program 
+     * how to run or of info used to run a certain way
+     */
     public static void main(String[] args) {
         launch(args);
     }

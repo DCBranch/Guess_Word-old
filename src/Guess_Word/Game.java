@@ -150,26 +150,26 @@ public class Game {
         return true;
     }
     
-    //Returns a String of the game's mystery word
+    /**Returns a String of the game's mystery word*/
     public String getMystWord()
     {
         return new String(mysteryWord);
     }
     
-    //Returns an int of the number of guesses allotted for the game
+    /**Returns an int of the number of guesses allotted for the game*/
     public int getNumGuesses()
     {
         return numGuesses;
     }
     
-    /*Returns a String of the game's currently revealed letters of the mystery
+    /**Returns a String of the game's currently revealed letters of the mystery
     word*/
     public String getCurrWord()
     {
         return new String(currentWord);
     }
     
-    //Returns a String of the letters already guessed
+    /**Returns a String of the letters already guessed*/
     public String getGuesses()
     {
         return guesses.toString();
