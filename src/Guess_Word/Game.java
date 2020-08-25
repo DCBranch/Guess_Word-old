@@ -2,6 +2,7 @@
  * and start a new game, guess letters until the word from the WordList file is 
  * completed or the player runs out of guess, save and load previous games, and 
  * all in one window and GUI basis.
+ * 
  * @author Dawson C. Branch
  * @version 1.0.0
  * @since 1.0.0
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 /**Game classes are what hold info about the player's game in the moment; what 
  * the full mystery is, what the player has revealed of the mystery word, and 
  * the player's guesses.
+ * 
  * @author Dawson C. Branch
  * @version 1.0.0
  * @since 1.0.0

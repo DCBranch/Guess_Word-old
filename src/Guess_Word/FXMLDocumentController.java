@@ -3,6 +3,7 @@
  * letters until the word from the WordList file is 
  * completed or the player runs out of guess, save and 
  * load previous games, and all in one window and GUI basis.
+ * 
  * @author Dawson C. Branch
  * @version 1.0.0
  * @since 1.0.0
@@ -35,6 +36,7 @@ import java.util.Scanner;
 import java.nio.file.Paths;
 
 /**FXMLDocumentController provides the general functionality to the GUI
+ * 
  * @author Dawson C. Branch
  * @version 1.0.0
  * @since 1.0.0
@@ -130,6 +132,7 @@ public class FXMLDocumentController
     
     /**Adjusts difficulty upon the mouse moving the slider in the respective
      * portion, fraction, of the slider's range
+     * 
      * @param event - When the slider is adjusted
      */
     @FXML
@@ -253,6 +256,7 @@ public class FXMLDocumentController
     }
 
     /**LoadGame pulls the list of saved game files
+     * 
      * @param event Load Game button is pressed
      */
     @FXML
@@ -280,6 +284,7 @@ public class FXMLDocumentController
     
     /**Use the save file highlighted in the listview for saves to recreate the 
     Game class
+    * 
     * @param event Load button in hbx for saved games is clicked
     * Possible bug: Load button may be selectable even when there are no save 
     * files.
@@ -370,6 +375,7 @@ public class FXMLDocumentController
     /**Forfeit the game, prevent the player from interacting with the game
      * components and save function, reveal the mystery word, and reveal the
      * return to start menu button.
+     * 
      @param event Quit button is clicked*/
     @FXML
     void QuitGame(ActionEvent event)
@@ -387,6 +393,7 @@ public class FXMLDocumentController
     }
     
     /**Return to the start menu
+     * 
      * @param event The return button is clicked
      */
     @FXML
@@ -407,6 +414,7 @@ public class FXMLDocumentController
      * If there are no more letters to guess, decrease the number of guesses of 'Lifes' remaining,
      * and declare the game lost if there are now 0 left. Displays an error
      * message if the input is invalid. 
+     * 
      * @param event Guess button is clicked
      * For clarity, change name to EnteredGuess.
      */
@@ -456,6 +464,7 @@ public class FXMLDocumentController
     }
 
     /**Uses the current Game class's save method to create a save file.
+     * 
      * @param event Save button is clicked
      */
     @FXML

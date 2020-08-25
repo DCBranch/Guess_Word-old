@@ -1,6 +1,10 @@
-/**Guess_Word is a hang-man-like game in which players can select a difficult and start a new game, guess letters until the word from the WordList file is completed or the player runs out of guess, save and load previous games, and all in one window and GUI basis.
+/**Guess_Word is a hang-man-like game in which players can select a difficult 
+ * and start a new game, guess letters until the word from the WordList file is 
+ * completed or the player runs out of guess, save and load previous games, and 
+ * all in one window and GUI basis.
+ * 
  * @author Dawson C. Branch
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  * 
  * Possible Update: Create a score system in which right guesses net points, 
@@ -24,9 +28,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-/**Main Guess_Word class that launches the application via loading the FXMLDocument
+/**Main Guess_Word class that launches the application via loading the 
+ * FXMLDocument
+ * 
  * @author Dawson C. Branch
- * @version 1.0.0
+ * @version 1.0.1
  * @since 1.0.0
  */
 public class Guess_Word extends Application {
@@ -43,14 +49,15 @@ public class Guess_Word extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Guess Word");
         stage.show();
     }
     
     /**Launches the standalone Guess Word game application. Returns upon exiting
      * the application
      * 
-     * @param args - Array input command line arguments for informing program 
-     * how to run or of info used to run a certain way
+     * @param args - Array of inputted command line arguments for informing 
+     * program how to run or of info used to run a certain way
      */
     public static void main(String[] args) {
         launch(args);
