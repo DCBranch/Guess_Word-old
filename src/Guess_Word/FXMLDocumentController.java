@@ -5,7 +5,7 @@
  * load previous games, and all in one window and GUI basis.
  * 
  * @author Dawson C. Branch
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 package Guess_Word;
@@ -38,7 +38,7 @@ import java.nio.file.Paths;
 /**FXMLDocumentController provides the general functionality to the GUI
  * 
  * @author Dawson C. Branch
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class FXMLDocumentController
@@ -136,7 +136,7 @@ public class FXMLDocumentController
      * @param event - When the slider is adjusted
      */
     @FXML
-    void AdjustDifficulty(MouseEvent event)
+    void adjustDifficulty(MouseEvent event)
     {
         if(sld_Difficulty.getValue() < (sld_Difficulty.getMax() / 3))
         {
@@ -158,12 +158,13 @@ public class FXMLDocumentController
     }
 
     @FXML
-    void CreateGame(ActionEvent event)
+    void createGame(ActionEvent event)
     {
         Random randomGen = new Random();
         int random = 0;
         System.out.println(random);
         int numGuesses = 0;
+        
         
         /*If the word list for each difficulty level is not populated, then the 
         code block will try to populate it*/
@@ -189,7 +190,7 @@ public class FXMLDocumentController
             }
             catch(NoSuchElementException | IOException | IllegalStateException e)
             {
-                System.out.println("ERROR TEST");
+                System.out.println("NO FILE FOUND");
                 e.printStackTrace();
 
                 System.exit(1);
@@ -213,9 +214,7 @@ public class FXMLDocumentController
                 numGuesses = 4;
                 break;
         }
-        /*Inefficient code. Copy to following 4 lines into the switch above for each 
-        difficulty case, swap out selectedWords with the respective difficulty, 
-        delete the declaration of selectedWords, and check for any other instances of it.*/
+        
         System.out.println(selectedWords.size());
         random = randomGen.nextInt(selectedWords.size());
         System.out.println(random);
@@ -255,12 +254,12 @@ public class FXMLDocumentController
         pne_Game.setVisible(true);
     }
 
-    /**LoadGame pulls the list of saved game files
+    /**loadGame pulls the list of saved game files
      * 
      * @param event Load Game button is pressed
      */
     @FXML
-    void LoadGame(ActionEvent event)
+    void loadGame(ActionEvent event)
     {
         hbx_LoadGame.setDisable(false);
         btn_Load.setVisible(false);
@@ -294,7 +293,7 @@ public class FXMLDocumentController
     * return button to saves hbx,
     */
     @FXML
-    void LoadSelected(ActionEvent event)
+    void loadSelected(ActionEvent event)
     {
         File[] files = new File(".").listFiles();
         List<String> fileList = new ArrayList<String>();
@@ -314,7 +313,6 @@ public class FXMLDocumentController
         
         try (Scanner input = new Scanner(Paths.get(fileList.get(ltv_Saves.getSelectionModel().getSelectedIndex()))))
         {
-            //input.useDelimiter("|");
             while (input.hasNext())
             {
                 mystWord = input.nextLine();
@@ -378,7 +376,7 @@ public class FXMLDocumentController
      * 
      @param event Quit button is clicked*/
     @FXML
-    void QuitGame(ActionEvent event)
+    void quitGame(ActionEvent event)
     {
         lbl_MysteryWord.setText(currGame.getMystWord());
         
@@ -397,7 +395,7 @@ public class FXMLDocumentController
      * @param event The return button is clicked
      */
     @FXML
-    void ReturnToStart (ActionEvent event)
+    void returnToStart (ActionEvent event)
     {
         pne_Game.setVisible(false);
         
@@ -419,7 +417,7 @@ public class FXMLDocumentController
      * For clarity, change name to EnteredGuess.
      */
     @FXML
-    void EnterGuess(ActionEvent event)
+    void enterGuess(ActionEvent event)
     {
         if ((txt_GuessInput.getText().length() != 1)
                 || !(Character.isAlphabetic(txt_GuessInput.getText().charAt(0)))
@@ -468,7 +466,7 @@ public class FXMLDocumentController
      * @param event Save button is clicked
      */
     @FXML
-    void SaveGame(ActionEvent event)
+    void saveGame(ActionEvent event)
     {
         currGame.save();
     }

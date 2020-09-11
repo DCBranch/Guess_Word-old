@@ -4,7 +4,7 @@
  * all in one window and GUI basis.
  * 
  * @author Dawson C. Branch
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 package Guess_Word;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * the player's guesses.
  * 
  * @author Dawson C. Branch
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class Game {
@@ -35,8 +35,6 @@ public class Game {
     private List<Character> guesses = new ArrayList<Character>();
     
     private int numGuesses = 0;
-    //Unneeded?
-    private Object[] args;
     
     /**New game constructor
      * 
@@ -90,20 +88,6 @@ public class Game {
         saveFileName = saveFileName.replace('.', '_');
         saveFileName = saveFileName.replace(':', '_');
         
-        //Tries to create a new save file
-        try
-        {
-            FileWriter saveFile = new FileWriter (saveFileName, true);
-            
-            BufferedWriter buffReader = new BufferedWriter(saveFile);
-        }
-        catch(NoSuchElementException | IOException | IllegalStateException e)
-        {
-            System.out.println("ERROR TEST");
-            e.printStackTrace();
-            
-            System.exit(1);
-        }
         //Adds new save data to string meant for save file. Format:  "mysteryWord|currentWordCharArray|lettersAlreadyGuessed|numberOfGuessesLeft return"
         String saveFileStr = new String(mysteryWord) + "\n" + new String(currentWord) + "\n" + guesses.toString().replaceAll("[,\\s\\[\\]]", "") + "\n" + Integer.toString(numGuesses);
         
@@ -115,7 +99,7 @@ public class Game {
         }
         catch(NoSuchElementException | IOException | IllegalStateException e)
         {
-            System.out.println("ERROR TEST");
+            System.out.println("CAN'T CREATE SAVE FILE");
             e.printStackTrace();
             
             System.exit(1);

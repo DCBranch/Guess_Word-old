@@ -4,16 +4,8 @@
  * all in one window and GUI basis.
  * 
  * @author Dawson C. Branch
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
- * 
- * Possible Update: Create a score system in which right guesses net points, 
- * wins net completion bonus points, perfect wins (no missed guesses) net 
- * more bonus points, incorrect guesses cause deductions in score, losses 
- * cause more deductions, score gain multipliers depending on difficulty, 
- * score gets saved along with other data, words are no longer revealed 
- * after quitting, mystery word is revealed upon (causing a loss), and with 
- * graphical changes in GUI made to accommodate these changes
  */
 package Guess_Word;
 
@@ -32,7 +24,7 @@ import javafx.stage.Stage;
  * FXMLDocument
  * 
  * @author Dawson C. Branch
- * @version 1.0.1
+ * @version 1.0.2
  * @since 1.0.0
  */
 public class Guess_Word extends Application {
@@ -50,6 +42,7 @@ public class Guess_Word extends Application {
         
         stage.setScene(scene);
         stage.setTitle("Guess Word");
+        stage.resizableProperty().setValue(Boolean.FALSE);
         stage.show();
     }
     
